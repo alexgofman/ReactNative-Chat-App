@@ -60,7 +60,10 @@ module.exports = React.createClass({
           sendbird.connect({
             successFunc: (data) => {
               sendbird.getChannelInfo((channel) => {
-                this.props.navigator.push({ name: 'chat' });
+                sendbird.connect({
+                  successFunc: (data) => { this.props.navigator.push({ name: 'chat' }); },
+                  errorFunc: (status, error) => { console.log(status, error); }
+                });
               });
             },
             errorFunc: (status, error) => {
